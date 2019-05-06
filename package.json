@@ -1,0 +1,35 @@
+{
+  "name": "set-components",
+  "version": "1.0.3",
+  "main": "build/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mikedeng/set-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mikedeng/set-components/issues"
+  },
+  "homepage": "https://github.com/mikedeng/set-components#readme",
+  "author": "Mike Dune",
+  "peerDependencies": {
+    "react": "^16.8.6"
+  },
+  "dependencies": {
+    "react": "^16.8.6",
+    "webpack": "^4.30.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "@babel/preset-env": "^7.4.4",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.5",
+    "webpack-cli": "^3.3.2"
+  }
+}
