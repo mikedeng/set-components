@@ -1,11 +1,11 @@
 {
   "name": "set-components",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "main": "build/index.js",
   "license": "MIT",
   "scripts": {
     "start": "webpack --watch",
-    "build": "webpack"
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
