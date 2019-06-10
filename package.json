@@ -4,10 +4,12 @@
   "main": "build/index.js",
   "license": "MIT",
   "scripts": {
-    "start": "webpack --watch",
+    "start": "webpack --mode development --watch",
     "build": "webpack --mode production",
-    "test:unit": "mocha --require @babel/register --require ./test/helpers.js --require ./test/dom.js 'test/specs/**/*.spec.js'",
-    "test:unit:watch": "npm run test:unit -- --watch"
+    "cypress": "cypress run",
+    "test:unit": "mocha --require @babel/register --require ./test/helpers.js --require ./test/dom.js --require ignore-styles 'test/specs/**/*.spec.js'",
+    "test:unit:watch": "npm run test:unit -- --watch",
+    "test:cypress": "start-server-and-test start http://localhost:8080 cypress"
   },
   "repository": {
     "type": "git",
@@ -51,6 +53,7 @@
     "less-loader": "^5.0.0",
     "mocha": "^6.1.4",
     "react-dom": "^16.8.6",
+    "start-server-and-test": "^1.9.1",
     "style-loader": "^0.23.1",
     "webpack-cli": "^3.3.2"
   }
