@@ -1,10 +1,10 @@
 import React from 'react';
 import Checkbox from 'antd/lib/checkbox';
 // import 'antd/lib/checkbox/style/index.less'
-import 'antd/lib/checkbox/style/css';
+// import 'antd/lib/checkbox/style/css';
 // import DatePicker from 'antd/lib/date-picker'; // 加载 JS
 // import 'antd/lib/date-picker/style/css'
-import styles from "./style/index.less";
+// import styles from "./style/index.less";
 
 import DatePicker from 'antd/lib/date-picker'; // 加载 JS
 import 'antd/lib/date-picker/style/css';
