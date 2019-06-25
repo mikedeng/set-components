@@ -4,7 +4,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.js',
-    libraryTarget: 'commonjs2'
+    library: 'set-components',
+    libraryTarget: 'umd'
   },
   module: {
     rules: [
@@ -31,13 +32,37 @@ module.exports = {
             }
           },
           {
-            loader: "less-loader"
+            loader: "less-loader",
+            options: {
+              javascriptEnabled: true
+            }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              sourceMap: true,
+              modules: true,
+              localIdentName: "[local]___[hash:base64:5]"
+            }
           }
         ]
       }
     ]
   },
   externals: {
-    'react': 'commonjs react' 
+    'react': 'commonjs react',
+    antd: {
+      commonjs: 'antd',
+      commonjs2: 'antd',
+        amd: 'antd',
+    },
   }
 };

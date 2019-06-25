@@ -1,6 +1,5 @@
 export { default as withMount } from './withMount';
 
-export * from './components';
-
+export { Checkbox } from './lib';
 
 export default {};
