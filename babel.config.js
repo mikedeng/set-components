@@ -1,7 +1,7 @@
 module.exports = function(api) {
   api.cache(true);
 
-  const presets = ["@babel/preset-env", "@babel/preset-react"];
+  const presets = ["@babel/preset-react"];
   const plugins = [
     [
       "@babel/plugin-proposal-decorators",
@@ -18,6 +18,8 @@ module.exports = function(api) {
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-syntax-class-properties",
     "@babel/plugin-transform-react-jsx",
+    "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-do-expressions",
     "transform-class-properties"
   ];
 

@@ -1,18 +1,10 @@
-import React, { Fragment } from "react";
-import { Checkbox } from "antd";
-import styles from "./style/index.less";
+import React from 'react';
+import { Checkbox } from 'antd';
+import styles from './index.less';
 
 const MyCheckbox = props => {
-  const { onChange } = props;
-  return (
-    <div>
-      <Checkbox
-        className={styles.checkbox2}
-        {...props}
-        onChange={e => onChange(e.target.checked)}
-      />
-    </div>
-  );
+  const { indeterminate, checked } = props;
+  return <Checkbox className={styles.checkbox} checked={checked} indeterminate={indeterminate} />;
 };
 
 export default MyCheckbox;
