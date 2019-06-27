@@ -1,32 +1,63 @@
-import _ from 'lodash';
-import React, { Component } from 'react';
-import CheckItem from '../CheckItem';
-import styles from './index.less';
-import MenuContainer from './MenuContainer';
+import _ from "lodash";
+import React, { Component } from "react";
+import CheckItem from "../CheckItem";
+import styles from "./index.less";
+import MenuContainer from "./MenuContainer";
 
 class EnityType extends Component {
   state = {
     checkedAll: false,
     indeterminate: false,
-    value: [],
+    value: []
   };
 
   componentDidMount() {
-    const { value } = this.props;
-    this.setCheckState(value);
+    const { value, options = [] } = this.props;
+    this.renewOptions(options, value);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { value: newValue } = nextProps;
-    const { value } = this.state;
+  renewOptions = (options, value) => {
+    const newOptions = this.extendOptions(options);
+    this.setState({ options: newOptions }, () => {
+      this.setCheckState(value);
+    });
+  };
 
+  extendOptions = options => {
+    const newOptions = options?.map(e => {
+      Object.defineProperty(e, "subCodes", {
+        emberable: false,
+        get() {
+          return this.children?.map(e => e.code);
+        }
+      });
+
+      return e;
+    });
+
+    Object.defineProperty(newOptions, "subCodes", {
+      emberable: false,
+      get() {
+        return this.map(e => e.subCodes).reduce(
+          (hash, e) => hash.concat(e),
+          []
+        );
+      }
+    });
+
+    return newOptions;
+  };
+
+  componentWillReceiveProps(nextProps) {
+    const { value: newValue, options } = nextProps;
+    const { value } = this.state;
     if (!_.isEqual(value, newValue)) {
-      this.setCheckState(newValue);
+      this.renewOptions(options, newValue);
     }
   }
 
   handleClickAll = callback => {
-    const { options } = this.props;
+    const { options } = this.state;
     this.setState(({ checkedAll }) => {
       const newCheckAll = !checkedAll;
       const newChecks = newCheckAll ? options.subCodes : [];
@@ -38,16 +69,15 @@ class EnityType extends Component {
       return {
         indeterminate: false,
         checkedAll: newCheckAll,
-        value: newChecks,
+        value: newChecks
       };
     });
   };
 
   setCheckState = newChecks => {
-    this.setState(() => {
+    this.setState(({ options }) => {
       let checkedAll = false;
       let indeterminate = false;
-      const { options } = this.props;
 
       // 如果没有选择任何项目
       if (!newChecks || newChecks.length === 0) {
@@ -68,8 +98,12 @@ class EnityType extends Component {
   };
 
   render() {
-    const { options, onChange } = this.props;
-    const { checkedAll, indeterminate, value } = this.state;
+    const { onChange } = this.props;
+    const { options, checkedAll, indeterminate, value } = this.state;
+
+    if (!options || options.length === 0) {
+      return null;
+    }
 
     return (
       <div className={styles.container}>
@@ -84,7 +118,7 @@ class EnityType extends Component {
             })
           }
         >
-          <i style={{ fontStyle: 'normal' }}>全选</i>
+          <i style={{ fontStyle: "normal" }}>全选</i>
         </CheckItem>
         {options?.map((option, key) => {
           const filterValue = _.intersection(value, option.subCodes);

@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import _ from 'lodash';
-import MyMenu from './MyMenu';
+import React, { Component } from "react";
+import _ from "lodash";
+import MyMenu from "./MyMenu";
 
 class MenuContainer extends Component {
   state = {
     value: [],
     checked: false,
     open: false,
-    data: {},
+    data: {}
   };
 
   componentDidMount() {
@@ -21,7 +21,10 @@ class MenuContainer extends Component {
     const { value: newValue } = nextProps;
     const { value } = this.state;
     if (!_.isEqual(newValue, value)) {
-      this.setState({ value: newValue, checked: newValue && newValue.length > 0 });
+      this.setState({
+        value: newValue,
+        checked: newValue && newValue.length > 0
+      });
     }
   }
 
