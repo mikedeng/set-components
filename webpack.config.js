@@ -1,20 +1,23 @@
-var path = require('path');
+var path = require("path");
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   output: {
-    path: path.resolve(__dirname, 'build'),
-    filename: 'index.js',
-    library: 'set-components',
-    libraryTarget: 'umd'
+    path: path.resolve(__dirname, "dist"),
+    filename: "index.js",
+    library: "set-components",
+    libraryTarget: "umd"
   },
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: [path.resolve(__dirname, 'src'), path.resolve(__dirname, 'test')],
-        exclude: /(node_modules|bower_components|build)/,
+        include: [
+          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "test")
+        ],
+        exclude: /(node_modules|bower_components|dist)/,
         use: {
-          loader: 'babel-loader'
+          loader: "babel-loader"
         }
       },
       {
@@ -58,11 +61,14 @@ module.exports = {
     ]
   },
   externals: {
-    'react': 'commonjs react',
-    antd: {
-      commonjs: 'antd',
-      commonjs2: 'antd',
-        amd: 'antd',
+    react: {
+      commonjs: "react",
+      commonjs2: "react"
     },
+    antd: {
+      commonjs: "antd",
+      commonjs2: "antd",
+      amd: "antd"
+    }
   }
 };

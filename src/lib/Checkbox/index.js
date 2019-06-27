@@ -1,18 +1,18 @@
-import React from 'react';
-// import Checkbox from 'antd/lib/checkbox';
-// import 'antd/lib/checkbox/style/index.less'
-// import 'antd/lib/checkbox/style/css';
-// import DatePicker from 'antd/lib/date-picker'; // 加载 JS
-// import 'antd/lib/date-picker/style/css'
-// import styles from "./style/index.less";
-
-// import DatePicker from 'antd/lib/date-picker'; // 加载 JS
-// import 'antd/lib/date-picker/style/css';
+import React, { Fragment } from "react";
+import { Checkbox } from "antd";
+import styles from "./style/index.less";
 
 const MyCheckbox = props => {
   const { onChange } = props;
-  return null;
-  // <Checkbox className={styles.checkbox2} {...props} onChange={(e) => onChange(e.target.checked)} />
+  return (
+    <div>
+      <Checkbox
+        className={styles.checkbox2}
+        {...props}
+        onChange={e => onChange(e.target.checked)}
+      />
+    </div>
+  );
 };
 
 export default MyCheckbox;
