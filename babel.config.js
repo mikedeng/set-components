@@ -20,6 +20,7 @@ module.exports = function(api) {
     "@babel/plugin-transform-react-jsx",
     "@babel/plugin-proposal-optional-chaining",
     "@babel/plugin-proposal-do-expressions",
+    "@babel/plugin-transform-runtime",
     "transform-class-properties"
   ];
 

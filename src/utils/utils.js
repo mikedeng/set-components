@@ -1,6 +1,3 @@
-import 'core-js/es6/number';
-// import 'regenerator-runtime/runtime';
-
 import React from "react";
 import nzh from "nzh/cn";
 import { message } from "antd";
