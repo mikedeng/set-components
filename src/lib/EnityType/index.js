@@ -49,10 +49,10 @@ class EnityType extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    const { value: newValue, options } = nextProps;
-    const { value } = this.state;
-    if (!_.isEqual(value, newValue)) {
-      this.renewOptions(options, newValue);
+    const { value: newValue, options: newOptions } = nextProps;
+    const { value, options } = this.state;
+    if (!_.isEqual(value, newValue) || !_.isEqual(options, newOptions)) {
+      this.renewOptions(newOptions, newValue);
     }
   }
 
