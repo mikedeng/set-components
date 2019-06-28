@@ -84,11 +84,6 @@ module.exports = {
       commonjs2: "lodash",
       amd: "lodash",
       root: "_"
-    },
-    nzh: {
-      commonjs: "nzh",
-      commonjs2: "nzh",
-      amd: "nzh"
     }
   },
   resolve: {

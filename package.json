@@ -33,7 +33,6 @@
     "antd": "^3.19.2",
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
-    "nzh": "^1.0.4",
     "react": "^16.8.6"
   },
   "devDependencies": {
