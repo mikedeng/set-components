@@ -1,10 +1,11 @@
 import _ from "lodash";
 import React, { Component } from "react";
+import classNames from "classnames";
 import CheckItem from "../CheckItem";
 import styles from "./index.less";
 import MenuContainer from "./MenuContainer";
 
-class EnityType extends Component {
+class EntityType extends Component {
   state = {
     checkedAll: false,
     indeterminate: false,
@@ -25,25 +26,29 @@ class EnityType extends Component {
 
   extendOptions = options => {
     const newOptions = options?.map(e => {
-      Object.defineProperty(e, "subCodes", {
-        emberable: false,
-        get() {
-          return this.children?.map(e => e.code);
-        }
-      });
+      if (!e.hasOwnProperty("subCodes")) {
+        Object.defineProperty(e, "subCodes", {
+          emberable: false,
+          get() {
+            return this.children?.map(e => e.code);
+          }
+        });
+      }
 
       return e;
     });
 
-    Object.defineProperty(newOptions, "subCodes", {
-      emberable: false,
-      get() {
-        return this.map(e => e.subCodes).reduce(
-          (hash, e) => hash.concat(e),
-          []
-        );
-      }
-    });
+    if (!newOptions.hasOwnProperty("subCodes")) {
+      Object.defineProperty(newOptions, "subCodes", {
+        emberable: false,
+        get() {
+          return this.map(e => e.subCodes).reduce(
+            (hash, e) => hash.concat(e),
+            []
+          );
+        }
+      });
+    }
 
     return newOptions;
   };
@@ -98,7 +103,7 @@ class EnityType extends Component {
   };
 
   render() {
-    const { onChange } = this.props;
+    const { onChange, className, style } = this.props;
     const { options, checkedAll, indeterminate, value } = this.state;
 
     if (!options || options.length === 0) {
@@ -106,7 +111,7 @@ class EnityType extends Component {
     }
 
     return (
-      <div className={styles.container}>
+      <div className={classNames(styles.container, className)} style={{...style}}>
         <CheckItem
           checked={checkedAll}
           indeterminate={indeterminate}
@@ -145,4 +150,4 @@ class EnityType extends Component {
   }
 }
 
-export default EnityType;
+export default EntityType;

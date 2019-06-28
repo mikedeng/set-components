@@ -1,5 +1,7 @@
-export { default as withMount } from './withMount';
+export { default as withMount } from "./withMount";
+export { Checkbox, EntityType } from "./lib";
 
-export { Checkbox, EnityType } from './lib';
+// 单词写错，兼容
+export { EntityType as EnityType } from "./lib";
 
 export default {};

@@ -1,2 +1,2 @@
 export { default as Checkbox } from "./Checkbox";
-export { default as EnityType } from "./EnityType";
+export { default as EntityType } from "./EntityType";
