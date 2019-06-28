@@ -1,8 +1,8 @@
-import React from 'react';
-import { Icon, Menu } from 'antd';
-import stylesCheckItem from '../CheckItem/index.less';
-import Checkbox from '../Checkbox';
-import { isUrl, omitStr } from '@/utils/utils';
+import React from "react";
+import { Icon, Menu } from "antd";
+import stylesCheckItem from "../CheckItem/index.less";
+import Checkbox from "../Checkbox";
+import { isUrl, omitStr } from "@/utils/utils";
 
 const { SubMenu } = Menu;
 
@@ -22,11 +22,12 @@ const MyMenu = ({ onChange, onToggleOpen, data, value, checked, open }) => {
       selectedKeys={newValues}
       openKeys={open ? [data.code.toString()] : []}
       multiple
-      subMenuCloseDelay={1}
+      subMenuCloseDelay={2}
     >
       <SubMenu
         key={data.code.toString()}
         popupClassName="rh-menu-popup"
+        // style={{ height: "100%", lineHeight: "auto" }}
         title={
           <span title={data.name}>
             {do {
@@ -36,7 +37,7 @@ const MyMenu = ({ onChange, onToggleOpen, data, value, checked, open }) => {
                     <img
                       src={data.icon}
                       alt="icon"
-                      style={{ display: 'inline-block', width: 20, height: 20 }}
+                      style={{ display: "inline-block", width: 20, height: 20 }}
                     />
                   );
                 }
@@ -49,13 +50,19 @@ const MyMenu = ({ onChange, onToggleOpen, data, value, checked, open }) => {
             {omitStr(data.name, 4)}
           </span>
         }
-        onTitleMouseEnter={() => onToggleOpen(true)}
-        onMouseLeave={() => onToggleOpen(false)}
+        onMouseEnter={() => {
+          onToggleOpen(true);
+        }}
+        onMouseLeave={() => {
+          onToggleOpen(false);
+        }}
       >
         {data.children?.map(subItem => {
           return (
             <Menu.Item key={subItem.code.toString()} title={subItem.name}>
-              <Checkbox checked={newValues.indexOf(subItem.code.toString()) !== -1} />
+              <Checkbox
+                checked={newValues.indexOf(subItem.code.toString()) !== -1}
+              />
               <span>{subItem.name}</span>
             </Menu.Item>
           );

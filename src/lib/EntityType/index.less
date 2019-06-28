@@ -1,4 +1,4 @@
-@import '~@/assets/less/variables.less';
+@import "~@/assets/less/variables.less";
 
 .container {
   display: flex;
@@ -6,13 +6,12 @@
 
   & > ul {
     :global {
-      @import '~@/assets/less/menu.less';
+      @import "~@/assets/less/menu.less";
 
       .ant-menu-sub {
         position: absolute;
         z-index: 200000;
         width: @person-type-width;
-        margin-top: -5px;
       }
 
       .ant-menu-submenu {
@@ -23,6 +22,8 @@
       .ant-menu-submenu-title {
         padding-left: 0 !important;
         padding-right: 0 !important;
+        height: 100% !important;
+        line-height: 100% !important;
       }
 
       .ant-menu-item {
