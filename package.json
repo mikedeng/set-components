@@ -22,7 +22,8 @@
     "url": "git+ssh://git@github.com/mikedeng/set-components.git"
   },
   "files": [
-    "dist"
+    "dist",
+    "utils"
   ],
   "bugs": {
     "url": "https://github.com/mikedeng/set-components/issues"
