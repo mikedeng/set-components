@@ -15,6 +15,7 @@ module.exports = {
         test: /\.js$/,
         include: [
           path.resolve(__dirname, "packages"),
+          path.resolve(__dirname, "packages/utils"),
           path.resolve(__dirname, "test")
         ],
         exclude: /(node_modules|bower_components|dist)/,
