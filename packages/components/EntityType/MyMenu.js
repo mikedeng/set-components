@@ -2,7 +2,7 @@ import React from "react";
 import { Icon, Menu } from "antd";
 import stylesCheckItem from "../CheckItem/index.less";
 import Checkbox from "../Checkbox";
-import { isUrl, omitStr } from "@/utils/utils";
+import { isUrl, omitStr } from "../../utils";
 
 const { SubMenu } = Menu;
 

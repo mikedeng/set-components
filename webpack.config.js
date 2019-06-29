@@ -2,10 +2,10 @@ var path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: ["./src/index.js"],
+  entry: { index: "./packages/index.js", utils: "./packages/utils/index.js" },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "index.js",
+    filename: "[name].js",
     library: "set-components",
     libraryTarget: "umd"
   },
@@ -14,7 +14,7 @@ module.exports = {
       {
         test: /\.js$/,
         include: [
-          path.resolve(__dirname, "src"),
+          path.resolve(__dirname, "packages"),
           path.resolve(__dirname, "test")
         ],
         exclude: /(node_modules|bower_components|dist)/,
@@ -88,7 +88,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "src")
+      "@": path.resolve(__dirname, "packages")
     }
   }
 };
