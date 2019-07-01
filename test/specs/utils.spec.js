@@ -25,6 +25,13 @@ describe("utils: check exists", () => {
 
     // interval.js
     expect(utils.Interval).to.exist;
+
+
+    // number.js
+    expect(utils.toDecimalString).to.exist;
+
+    // options.js
+    expect(utils.getEnumObject).to.exist;
   });
 
   it("检查正确性: formatLongName", () => {

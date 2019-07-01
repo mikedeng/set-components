@@ -27,3 +27,5 @@ export * from "./Interval";
 export * from "./url";
 export * from "./message";
 export * from "./table";
+export * from "./number";
+export * from "./options";
