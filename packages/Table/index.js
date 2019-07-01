@@ -1,9 +1,9 @@
 import React from "react";
-import { Table } from "antd";
+import { Table as DefaultTable } from "antd";
 import table from "./table";
 
 const { createColumns } = table;
-export default class EnhanceTable extends React.Component {
+export default class Table extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -52,6 +52,6 @@ export default class EnhanceTable extends React.Component {
       ...others
     };
 
-    return <Table {...tableProps} />;
+    return <DefaultTable {...tableProps} />;
   }
 }
