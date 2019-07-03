@@ -69,7 +69,10 @@ const forkDatas = [
 class Basic extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      pageNum: 1,
+      pageSize: 10
+    };
   }
   getExtraFields() {
     return [
@@ -100,17 +103,13 @@ class Basic extends React.Component {
       }
     ];
   }
+
   render() {
-    const {
-      search,
-      onSearch = param => {
-        console.log("fork", param);
-      }
-    } = this.props;
+    const { pageNum, pageSize } = this.state;
     const forkProps = {
       fields,
-      onSearch,
-      search,
+      onSearch: ({ pageNum, pageSize }) => this.setState({ pageNum, pageSize }),
+      search: { pageNum, pageSize },
       rowKey: "id",
       datas: forkDatas,
       extraFields: this.getExtraFields()
@@ -120,7 +119,6 @@ class Basic extends React.Component {
       <div>
         <EnhanceTable
           {...forkProps}
-          onSearch={() => console.log(`trigger onSearch`)}
           pageSizeOptions={["3", "10", "20"]}
           total={100}
         />

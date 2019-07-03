@@ -12,7 +12,6 @@ Table组件主要是要解决中台业务每个表单页面都会使用antd的ta
 :--|:--:|---:|---:|:---:   
 | fields | 渲染属性 | 是 | array | -- 
 | onSearch | 翻页查询操作 | 是 | fun | 无：如果onSearch方法不存在，传了actions，或默认去调用actons.onSearch
-| actons | 翻页查询操作 | 否 |  object | 无：对象中得包含一个onSearch方法 
 | search | 初始化分页 | 是 |  object | { pageSize: 10, pageNo: 1 } 
 | datas | 要渲染的数据 | 是 | array | []
 | total | 总数 | 是 | number | --

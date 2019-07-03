@@ -23,7 +23,6 @@ export default class Table extends React.Component {
     const {
       search = {},
       total = 0,
-      actions = {},
       onSearch,
       rowKey = "id",
       footer,
@@ -35,14 +34,14 @@ export default class Table extends React.Component {
     } = this.props;
 
     const page = search.pageNum ? "pageNum" : pageName;
-    const onChange = pn => (onSearch || actions.onSearch)({ [page]: pn });
+    const onChange = (pn, psize) => onSearch({ [page]: pn, pageSize: psize });
 
     let newPagination = noPage
       ? false
       : {
           total,
           current: search[page],
-          pageSize: search.pageCount || search.pageSize,
+          pageSize: search.pageSize,
           onChange,
           showTotal: t => (footer ? footer({ total, ...search }) : `共 ${t} 条`)
         };
