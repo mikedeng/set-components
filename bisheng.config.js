@@ -53,14 +53,14 @@ module.exports = {
     return config;
   },
 
-  postcssConfig: {
-    default: {
-      plugins: [
-        autoprefixer({
-          overrideBrowserslist: ["> 1%", "last 2 versions", "not ie <= 10"]
-        })
-      ]
-    }
-  },
+  // postcssConfig: {
+  //   default: {
+  //     plugins: [
+  //       autoprefixer({
+  //         overrideBrowserslist: ["> 1%", "last 2 versions", "not ie <= 10"]
+  //       })
+  //     ]
+  //   }
+  // },
   root: `${filePath}/`
 };

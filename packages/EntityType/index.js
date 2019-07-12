@@ -126,6 +126,7 @@ class EntityType extends Component {
           <i style={{ fontStyle: "normal" }}>全选</i>
         </CheckItem>
         {options?.map((option, key) => {
+          // TODO: tuning
           const filterValue = _.intersection(value, option.subCodes);
 
           return (
@@ -134,6 +135,7 @@ class EntityType extends Component {
               data={option}
               value={filterValue}
               onChange={vals => {
+                // TODO: tuning
                 const otherSubCodes = _.difference(value, option.subCodes);
                 const newChecks = otherSubCodes.concat(vals);
                 if (onChange) {
