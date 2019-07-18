@@ -1,7 +1,6 @@
 import React from "react";
 import { Table as DefaultTable } from "antd";
 import table from "./table";
-
 import { LocaleProvider } from "antd";
 import zh_CN from "antd/lib/locale-provider/zh_CN";
 
@@ -26,10 +25,12 @@ export default class Table extends React.Component {
       onSearch,
       rowKey = "id",
       footer,
+
       noPage = false,
       pageName = "pageNum",
       pageSizeOptions,
       pagination,
+      showTotal = true,
       ...others
     } = this.props;
 
@@ -43,7 +44,9 @@ export default class Table extends React.Component {
           current: search[page],
           pageSize: search.pageSize,
           onChange,
-          showTotal: t => (footer ? footer({ total, ...search }) : `共 ${t} 条`)
+          showTotal: showTotal
+            ? t => (footer ? footer({ total, ...search }) : `共 ${t} 条`)
+            : null
         };
 
     if (pageSizeOptions && pageSizeOptions.length > 0) {
@@ -64,6 +67,7 @@ export default class Table extends React.Component {
       datas,
       loading = {},
       rowKey = "id",
+      className,
       ...others
     } = this.props;
 

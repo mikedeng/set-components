@@ -112,7 +112,8 @@ class Basic extends React.Component {
       search: { pageNum, pageSize },
       rowKey: "id",
       datas: forkDatas,
-      extraFields: this.getExtraFields()
+      extraFields: this.getExtraFields(),
+      showTotal: false
     };
 
     return (
