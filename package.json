@@ -33,7 +33,7 @@
   "author": "Mike Dune",
   "peerDependencies": {
     "antd": "^3.19.2",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "moment": "^2.24.0",
     "react": "^16.8.6"
   },
