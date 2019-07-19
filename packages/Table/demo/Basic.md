@@ -85,7 +85,8 @@ class Basic extends React.Component {
       search,
       rowKey: 'id',
       datas: forkDatas,
-      extraFields: this.getExtraFields()
+      extraFields: this.getExtraFields(),
+      className: "basic"
     };
 
     return (
