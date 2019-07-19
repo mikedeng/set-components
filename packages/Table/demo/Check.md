@@ -111,7 +111,6 @@ class Basic extends React.Component {
       fields,
       onSearch: ({ pageNum, pageSize }) => this.setState({ pageNum, pageSize }),
       search: { pageNum, pageSize },
-      rowKey: "id",
       datas: forkDatas,
       extraFields: this.getExtraFields(),
       showTotal: false,

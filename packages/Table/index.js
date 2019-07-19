@@ -115,7 +115,7 @@ export default class Table extends React.Component {
   };
 
   rowKeyValue = row => {
-    const { rowKey } = this.props;
+    const { rowKey = "id" } = this.props;
     return _.isFunction(rowKey) ? rowKey(row) : row[rowKey];
   };
 
