@@ -8,7 +8,9 @@ const { createColumns } = table;
 export default class Table extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      rows: []
+    };
   }
 
   getInitalColumns(fields) {
@@ -61,6 +63,60 @@ export default class Table extends React.Component {
     return { ...newPagination, ...pagination };
   }
 
+  getSelections = () => {
+    let onRow;
+    const {
+      checkMode,
+      selectedRowKeys = [],
+      rowKey = "id",
+      onCheck,
+      checkOnClickRow = true
+    } = this.props;
+
+    if (checkMode && checkOnClickRow) {
+      onRow = record => {
+        const primaryKey = record[rowKey];
+
+        const newKeys = [...selectedRowKeys];
+        const keyIndex = newKeys.findIndex(item => item === primaryKey);
+
+        const { rows } = this.state;
+        const newRows = [...rows];
+
+        return {
+          onClick: () => {
+            if (keyIndex !== -1) {
+              const rowIndex = newRows.findIndex(
+                item => item[rowKey] === primaryKey
+              );
+
+              newKeys.splice(keyIndex, 1);
+              newRows.splice(rowIndex, 1);
+
+              this.setState({ rows: newRows }, () => {
+                onCheck(newKeys, newRows);
+              });
+            } else {
+              if (checkMode === "single") {
+                this.setState({ rows: [record] }, () => {
+                  onCheck([primaryKey], [record]);
+                });
+              } else if (checkMode === "multiple") {
+                newKeys.push(primaryKey);
+                newRows.push(record);
+                this.setState({ rows: newRows }, () => {
+                  onCheck(newKeys, newRows);
+                });
+              }
+            }
+          }
+        };
+      };
+    }
+
+    return onRow;
+  };
+
   render() {
     const {
       fields,
@@ -70,8 +126,8 @@ export default class Table extends React.Component {
       className,
       checkMode,
       checkControl,
-      checkOnClick,
-      selectedRowKeys,
+      onCheck,
+      selectedRowKeys = [],
       ...others
     } = this.props;
 
@@ -84,8 +140,10 @@ export default class Table extends React.Component {
         rowSelection = {
           onChange: (keys, rows) => {
             const lastKey = keys[keys.length - 1];
-            const lastRow = rows.find(e => e.id === lastKey);
-            onCheck(...[lastRow]);
+            const lastRow = rows.find(e => e[rowKey] === lastKey);
+            this.setState({ rows: [lastRow] }, () => {
+              onCheck([lastKey], [lastRow]);
+            });
           },
           selectedRowKeys,
           type: checkControl || "checkbox",
@@ -94,7 +152,9 @@ export default class Table extends React.Component {
       } else if (checkMode === "multiple") {
         rowSelection = {
           onChange: (keys, rows) => {
-            onCheck(...rows);
+            this.setState({ rows }, () => {
+              onCheck(keys, rows);
+            });
           },
           selectedRowKeys,
           type: "checkbox"
@@ -102,17 +162,7 @@ export default class Table extends React.Component {
       }
     }
 
-    let onRow;
-    if (checkOnClick) {
-      onRow = record => {
-        return {
-          onClick: () => {
-            onCheck(record);
-          }
-        };
-      };
-    }
-
+    const onRow = this.getSelections();
     const tableProps = {
       columns,
       bordered: true,
