@@ -25,9 +25,7 @@ export default class Table extends React.Component {
       search = {},
       total = 0,
       onSearch,
-      rowKey = "id",
       footer,
-
       noPage = false,
       pageName = "pageNum",
       pageSizeOptions,
@@ -68,14 +66,13 @@ export default class Table extends React.Component {
     const {
       checkMode,
       selectedRowKeys = [],
-      rowKey = "id",
       onCheck,
       checkOnClickRow = true
     } = this.props;
 
     if (checkMode && checkOnClickRow) {
       onRow = record => {
-        const primaryKey = record[rowKey];
+        const primaryKey = this.rowKeyValue(record);
 
         const newKeys = [...selectedRowKeys];
         const keyIndex = newKeys.findIndex(item => item === primaryKey);
@@ -87,7 +84,7 @@ export default class Table extends React.Component {
           onClick: () => {
             if (keyIndex !== -1) {
               const rowIndex = newRows.findIndex(
-                item => item[rowKey] === primaryKey
+                item => this.rowKeyValue(item) === primaryKey
               );
 
               newKeys.splice(keyIndex, 1);
@@ -117,6 +114,11 @@ export default class Table extends React.Component {
     return onRow;
   };
 
+  rowKeyValue = row => {
+    const { rowKey } = this.props;
+    return _.isFunction(rowKey) ? rowKey(row) : row[rowKey];
+  };
+
   render() {
     const {
       fields,
@@ -139,7 +141,7 @@ export default class Table extends React.Component {
         rowSelection = {
           onChange: (keys, rows) => {
             const lastKey = keys[keys.length - 1];
-            const lastRow = rows.find(e => e[rowKey] === lastKey);
+            const lastRow = rows.find(e => this.rowKeyValue(e) === lastKey);
             this.setState({ rows: [lastRow] }, () => {
               onCheck([lastKey], [lastRow]);
             });
