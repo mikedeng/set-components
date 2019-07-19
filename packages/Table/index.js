@@ -68,11 +68,50 @@ export default class Table extends React.Component {
       loading = {},
       rowKey = "id",
       className,
+      checkMode,
+      checkControl,
+      checkOnClick,
+      selectedRowKeys,
       ...others
     } = this.props;
 
     const columns = this.getInitalColumns(fields);
     const newPagination = this.getPagniation();
+
+    let rowSelection;
+    if (checkMode) {
+      if (checkMode === "single") {
+        rowSelection = {
+          onChange: (keys, rows) => {
+            const lastKey = keys[keys.length - 1];
+            const lastRow = rows.find(e => e.id === lastKey);
+            onCheck(...[lastRow]);
+          },
+          selectedRowKeys,
+          type: checkControl || "checkbox",
+          columnTitle: " "
+        };
+      } else if (checkMode === "multiple") {
+        rowSelection = {
+          onChange: (keys, rows) => {
+            onCheck(...rows);
+          },
+          selectedRowKeys,
+          type: "checkbox"
+        };
+      }
+    }
+
+    let onRow;
+    if (checkOnClick) {
+      onRow = record => {
+        return {
+          onClick: () => {
+            onCheck(record);
+          }
+        };
+      };
+    }
 
     const tableProps = {
       columns,
@@ -80,6 +119,8 @@ export default class Table extends React.Component {
       dataSource: datas,
       loading: loading.list,
       rowKey,
+      rowSelection,
+      onRow,
       ...others,
       pagination: newPagination
     };
