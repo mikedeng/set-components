@@ -123,7 +123,6 @@ export default class Table extends React.Component {
       datas,
       loading = {},
       rowKey = "id",
-      className,
       checkMode,
       checkControl,
       onCheck,
