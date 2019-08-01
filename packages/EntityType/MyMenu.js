@@ -6,7 +6,16 @@ import { isUrl, omitStr } from "../utils";
 
 const { SubMenu } = Menu;
 
-const MyMenu = ({ onChange, onToggleOpen, data, value, checked, open }) => {
+const MyMenu = ({
+  onChange,
+  onToggleOpen,
+  data,
+  value,
+  checked,
+  indeterminate,
+  open,
+  onTitleClick
+}) => {
   if (Object.keys(data).length === 0) {
     return null;
   }
@@ -17,7 +26,11 @@ const MyMenu = ({ onChange, onToggleOpen, data, value, checked, open }) => {
       key={data.code.toString()}
       mode="inline"
       theme="dark"
-      className={checked ? stylesCheckItem.menuSelected : stylesCheckItem.menu}
+      className={
+        checked && indeterminate
+          ? stylesCheckItem.menuSelected
+          : stylesCheckItem.menu
+      }
       onClick={onChange}
       selectedKeys={newValues}
       openKeys={open ? [data.code.toString()] : []}
@@ -56,6 +69,7 @@ const MyMenu = ({ onChange, onToggleOpen, data, value, checked, open }) => {
         onMouseLeave={() => {
           onToggleOpen(false);
         }}
+        onTitleClick={onTitleClick}
       >
         {data.children?.map(subItem => {
           return (

@@ -7,7 +7,8 @@ class MenuContainer extends Component {
     value: [],
     checked: false,
     open: false,
-    data: {}
+    data: {},
+    indeterminate: false
   };
 
   componentDidMount() {
@@ -19,11 +20,14 @@ class MenuContainer extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { value: newValue } = nextProps;
-    const { value } = this.state;
+    const { value, data } = this.state;
     if (!_.isEqual(newValue, value)) {
+      const len = newValue?.length;
+      const dataLen = data.length;
       this.setState({
         value: newValue,
-        checked: newValue && newValue.length > 0
+        indeterminate: len > 0 && len < dataLen,
+        checked: len === dataLen
       });
     }
   }
@@ -46,9 +50,12 @@ class MenuContainer extends Component {
   };
 
   determinChecked = () => {
-    const { value } = this.state;
-    const checked = value && value.length > 0;
-    this.setState({ checked });
+    const { value, data } = this.state;
+    const len = value?.length ?? 0;
+    const dataLen = data.length;
+    const indeterminate = len > 0 && len < dataLen;
+    const checked = value.length === dataLen;
+    this.setState({ indeterminate, checked });
   };
 
   handleClick = event => {
@@ -61,16 +68,26 @@ class MenuContainer extends Component {
     });
   };
 
+  handleTitleClick = () => {
+    this.setState(({ checked, data }) => {
+      const newCheck = !checked;
+      const newValue = newCheck ? data.subCodes : [];
+      return { checked: newCheck, indeterminate: false, value: newValue };
+    });
+  };
+
   render() {
-    const { data, value, checked, open } = this.state;
+    const { data, value, indeterminate, checked, open } = this.state;
     if (Object.keys(data).length === 0) {
       return null;
     }
 
     return (
       <MyMenu
+        indeterminate={indeterminate}
         checked={checked}
         onChange={this.handleClick}
+        onTitleClick={this.handleTitleClick}
         onToggleOpen={val => this.setState({ open: val })}
         data={data}
         value={value}
