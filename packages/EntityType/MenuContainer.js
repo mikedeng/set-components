@@ -51,7 +51,7 @@ class MenuContainer extends Component {
 
   determinChecked = () => {
     const { value, data } = this.state;
-    const len = value?.length ?? 0;
+    const len = value?.length || 0;
     const dataLen = data.length;
     const indeterminate = len > 0 && len < dataLen;
     const checked = value.length === dataLen;
