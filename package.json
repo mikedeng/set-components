@@ -1,6 +1,6 @@
 {
   "name": "set-components",
-  "version": "1.3.6",
+  "version": "1.3.7",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
@@ -106,11 +106,11 @@
     "webpack-cli": "^3.3.2"
   },
   "dependencies": {
+    "autoprefixer": "^9.7.2",
     "classnames": "^2.2.6",
     "dva": "^2.4.1",
     "lodash-decorators": "^6.0.1",
     "nzh": "^1.0.4",
-    "qs": "^6.7.0",
-    "autoprefixer": "^9.7.2"
+    "qs": "^6.7.0"
   }
 }
