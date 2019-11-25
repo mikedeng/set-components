@@ -59,6 +59,9 @@ module.exports = {
               javascriptEnabled: true,
               sourceMap: true
             }
+          },
+          {
+            loader: "postcss-loader"
           }
         ]
       }

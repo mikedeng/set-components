@@ -67,7 +67,7 @@ export default class Table extends React.Component {
       checkMode,
       selectedRowKeys = [],
       onCheck,
-      checkOnClickRow = true
+      checkOnClickRow = true,
     } = this.props;
 
     if (checkMode && checkOnClickRow) {

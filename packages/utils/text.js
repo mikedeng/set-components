@@ -1,3 +1,4 @@
+import React from "react";
 import moment from "moment";
 import { YMDHms } from "./constants";
 import VARIABLES from "./variables";
