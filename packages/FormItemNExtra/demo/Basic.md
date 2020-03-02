@@ -9,6 +9,8 @@ order: 0
 import React, { Component } from "react";
 import { Form, Input } from "antd";
 
+const { TextArea } = Input;
+
 class TestFormItemNExtra extends Component {
   render() {
     const {
@@ -41,8 +43,8 @@ class TestFormItemNExtra extends Component {
               ],
               initialValue: ""
             })(
-              <Input.TextArea
-                autoSize={{ minRows: 10 }}
+              <TextArea
+                autosize={{ minRows: 15 }}
                 placeholder="请输入模型简介"
                 style={{ paddingRight: 75 }}
               />
