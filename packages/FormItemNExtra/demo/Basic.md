@@ -21,20 +21,15 @@ class TestFormItemNExtra extends Component {
     return (
       <Form style={{ width: 400 }}>
         <Form.Item label="模型名称">
-          {getFieldDecorator("name", {
-            rules: [{ max: MaxName, message: `输入模型最长为${MaxName}` }],
-            initialValue: "1"
-          })(
-            <Input
-              placeholder="请输入名称"
-              style={{ paddingRight: 75 }}
-              suffix={
-                <span>
-                  {(getFieldValue("name") || "").length}/{MaxName}
-                </span>
-              }
-            />
-          )}
+          <div style={{ display: "flex", alignItems: "baseline" }}>
+            {getFieldDecorator("name", {
+              rules: [{ max: MaxName, message: `输入模型最长为${MaxName}` }],
+              initialValue: "1"
+            })(<Input placeholder="请输入名称" />)}
+            <span style={{ marginLeft: 5 }}>
+              {(getFieldValue("name") || "").length}/{MaxName}
+            </span>
+          </div>
         </Form.Item>
 
         <Form.Item label="模型简介">
@@ -46,17 +41,15 @@ class TestFormItemNExtra extends Component {
               ],
               initialValue: ""
             })(
-              <Input
-                type="textarea"
+              <Input.TextArea
+                autoSize={{ minRows: 10 }}
                 placeholder="请输入模型简介"
                 style={{ paddingRight: 75 }}
-                suffix={
-                  <span>
-                    {getFieldValue("profile").length || 0}/{MAX300}
-                  </span>
-                }
               />
             )}
+            <span style={{ marginLeft: 5 }}>
+              {(getFieldValue("profile") || "").length}/{MAX300}
+            </span>
           </div>
         </Form.Item>
       </Form>
