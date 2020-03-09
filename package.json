@@ -59,7 +59,6 @@
     "babel-loader": "^8.0.5",
     "babel-plugin-import": "^1.12.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-plugin-transform-decorators-legacy": "^1.3.5",
     "bisheng": "^1.2.4",
     "bisheng-plugin-antd": "^1.2.2",
     "bisheng-plugin-description": "^0.1.4",
