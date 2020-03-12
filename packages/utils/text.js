@@ -45,3 +45,16 @@ export function omitStr(str, len) {
 
   return str;
 }
+
+/*
+ @minLen 密码最小长度
+ @msg 提示信息
+*/
+export function passwordRule(minLen = 6, message) {
+  return {
+    pattern: new RegExp(
+      `^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{${minLen},})`
+    ),
+    message: message || `密码至少 ${minLen} 位且必需包括字母、数字、特殊字符!`
+  };
+}

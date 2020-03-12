@@ -19,7 +19,8 @@ module.exports = {
   port: 8090,
   source: {
     guide: ["./guide"],
-    packages: "./packages"
+    packages: "./packages",
+    utils: "./packages/utils"
   },
   output: "./docs",
   theme: "./site",
