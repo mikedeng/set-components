@@ -53,7 +53,7 @@ export function omitStr(str, len) {
 export function passwordRule(minLen = 6, message) {
   return {
     pattern: new RegExp(
-      `^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\~\!\@\#\$\%\^\&\*\(\)\_\+\{\}\|\:\"\<\>\?\`\-\=\[\]\\\;\'\,\.\/])(?=.{${minLen},})`
+      `^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[-~!\\\\@\[#$%^&*()_+{}|\\\]:\";'<>?,./\`()=])(?=.{${minLen},})`
     ),
     message: message || `密码至少 ${minLen} 位且必需包括字母、数字、特殊字符!`
   };
