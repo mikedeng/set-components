@@ -9,7 +9,7 @@ class EntityType extends Component {
   state = {
     checkedAll: false,
     indeterminate: false,
-    value: []
+    value: [],
   };
 
   componentDidMount() {
@@ -24,14 +24,14 @@ class EntityType extends Component {
     });
   };
 
-  extendOptions = options => {
-    const newOptions = options?.map(e => {
+  extendOptions = (options) => {
+    const newOptions = options?.map((e) => {
       if (!e.hasOwnProperty("subCodes")) {
         Object.defineProperty(e, "subCodes", {
           emberable: false,
           get() {
-            return this.children?.map(e => e.code);
-          }
+            return this.children?.map((e) => e.code);
+          },
         });
       }
 
@@ -42,11 +42,11 @@ class EntityType extends Component {
       Object.defineProperty(newOptions, "subCodes", {
         emberable: false,
         get() {
-          return this.map(e => e.subCodes).reduce(
+          return this.map((e) => e.subCodes).reduce(
             (hash, e) => hash.concat(e),
             []
           );
-        }
+        },
       });
     }
 
@@ -61,7 +61,7 @@ class EntityType extends Component {
     }
   }
 
-  handleClickAll = callback => {
+  handleClickAll = (callback) => {
     const { options } = this.state;
     this.setState(({ checkedAll }) => {
       const newCheckAll = !checkedAll;
@@ -74,12 +74,12 @@ class EntityType extends Component {
       return {
         indeterminate: false,
         checkedAll: newCheckAll,
-        value: newChecks
+        value: newChecks,
       };
     });
   };
 
-  setCheckState = newChecks => {
+  setCheckState = (newChecks) => {
     this.setState(({ options }) => {
       let checkedAll = false;
       let indeterminate = false;
@@ -111,12 +111,18 @@ class EntityType extends Component {
     }
 
     return (
-      <div className={classNames(styles.container, className)} style={{...style}}>
+      <div
+        className={classNames(
+          theme === "light" ? styles["container-light"] : styles.container,
+          className
+        )}
+        style={{ ...style }}
+      >
         <CheckItem
           checked={checkedAll}
           indeterminate={indeterminate}
           onClick={() =>
-            this.handleClickAll(newChecks => {
+            this.handleClickAll((newChecks) => {
               if (onChange) {
                 onChange(newChecks);
               }
@@ -134,7 +140,7 @@ class EntityType extends Component {
               key={key}
               data={option}
               value={filterValue}
-              onChange={vals => {
+              onChange={(vals) => {
                 // TODO: tuning
                 const otherSubCodes = _.difference(value, option.subCodes);
                 const newChecks = otherSubCodes.concat(vals);
