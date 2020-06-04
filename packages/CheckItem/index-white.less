@@ -8,9 +8,9 @@
   @media screen and (max-width: @screen-xxl) {
     height: 25px;
   }
-  border: 1px solid @active-color !important;
+  border: 1px solid @border-color !important;
   color: @text-secondary-color;
-  border-right: 1px solid @active-color !important;
+  // border-right: 1px solid @active-color !important;
   flex: 0 0 @person-type-width;
   background-color: @bg-color;
   justify-content: center;
@@ -30,7 +30,7 @@
 .menuSelected {
   &:extend(.menu all);
 
-  border-color: @border-color !important;
-  border-right: 1px solid @border-color !important;
+  border-color: @active-color !important;
+  // border-right: 1px solid @border-color !important;
   color: @text-color;
 }
