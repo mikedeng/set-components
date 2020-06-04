@@ -77,6 +77,7 @@ class MenuContainer extends Component {
   };
 
   render() {
+    const { theme } = this.props;
     const { data, value, indeterminate, checked, open } = this.state;
     if (Object.keys(data).length === 0) {
       return null;
@@ -92,6 +93,7 @@ class MenuContainer extends Component {
         data={data}
         value={value}
         open={open}
+        theme={theme}
       />
     );
   }

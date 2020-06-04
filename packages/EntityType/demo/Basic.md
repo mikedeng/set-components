@@ -79,6 +79,7 @@ class CheckTypes extends Component {
     return (
       <div style={{ width: 300 }}>
         <EnityType
+          theme="light"
           options={personTypesOpts}
           value={personTypes}
           style={{ marginTop: "8px", width: "100%" }}

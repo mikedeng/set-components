@@ -14,7 +14,8 @@ const MyMenu = ({
   checked,
   indeterminate,
   open,
-  onTitleClick
+  onTitleClick,
+  theme
 }) => {
   if (Object.keys(data).length === 0) {
     return null;
@@ -25,7 +26,7 @@ const MyMenu = ({
     <Menu
       key={data.code.toString()}
       mode="inline"
-      theme="dark"
+      theme={theme || "dark"}
       className={
         checked && indeterminate
           ? stylesCheckItem.menuSelected

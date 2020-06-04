@@ -103,7 +103,7 @@ class EntityType extends Component {
   };
 
   render() {
-    const { onChange, className, style } = this.props;
+    const { onChange, className, style, theme } = this.props;
     const { options, checkedAll, indeterminate, value } = this.state;
 
     if (!options || options.length === 0) {
@@ -144,6 +144,7 @@ class EntityType extends Component {
 
                 this.setCheckState(newChecks);
               }}
+              theme={theme}
             />
           );
         })}
