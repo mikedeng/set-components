@@ -119,6 +119,7 @@ class EntityType extends Component {
         style={{ ...style }}
       >
         <CheckItem
+          theme={theme}
           checked={checkedAll}
           indeterminate={indeterminate}
           onClick={() =>

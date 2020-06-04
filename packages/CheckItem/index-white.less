@@ -1,0 +1,36 @@
+@import '~antd/lib/style/themes/default.less';
+@import '~@/assets/less/variables-white.less';
+
+.menu {
+  display: flex;
+  width: @person-type-width;
+  height: @menu-height;
+  @media screen and (max-width: @screen-xxl) {
+    height: 25px;
+  }
+  border: 1px solid @active-color !important;
+  color: @text-secondary-color;
+  border-right: 1px solid @active-color !important;
+  flex: 0 0 @person-type-width;
+  background-color: @bg-color;
+  justify-content: center;
+  align-items: center;
+  padding-left: 0;
+  margin: 0;
+
+  span {
+    margin-left: 5px;
+  }
+
+  & > li {
+    list-style: none;
+  }
+}
+
+.menuSelected {
+  &:extend(.menu all);
+
+  border-color: @border-color !important;
+  border-right: 1px solid @border-color !important;
+  color: @text-color;
+}
