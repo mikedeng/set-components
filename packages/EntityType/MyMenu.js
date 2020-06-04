@@ -1,6 +1,7 @@
 import React from "react";
 import { Icon, Menu } from "antd";
 import stylesCheckItem from "../CheckItem/index.less";
+import stylesCheckItemWhite from "../CheckItem/index-white.less";
 import Checkbox from "../Checkbox";
 import { isUrl, omitStr } from "../utils";
 
@@ -15,22 +16,22 @@ const MyMenu = ({
   indeterminate,
   open,
   onTitleClick,
-  theme
+  theme,
 }) => {
   if (Object.keys(data).length === 0) {
     return null;
   }
 
-  const newValues = value.map(e => e.toString());
+  const newValues = value.map((e) => e.toString());
+  const styleFile = theme === "light" ? stylesCheckItemWhite : stylesCheckItem;
+
   return (
     <Menu
       key={data.code.toString()}
       mode="inline"
       theme={theme || "dark"}
       className={
-        checked && indeterminate
-          ? stylesCheckItem.menuSelected
-          : stylesCheckItem.menu
+        checked && indeterminate ? styleFile.menuSelected : styleFile.menu
       }
       onClick={onChange}
       selectedKeys={newValues}
@@ -72,7 +73,7 @@ const MyMenu = ({
         }}
         onTitleClick={onTitleClick}
       >
-        {data.children?.map(subItem => {
+        {data.children?.map((subItem) => {
           return (
             <Menu.Item key={subItem.code.toString()} title={subItem.name}>
               <Checkbox
