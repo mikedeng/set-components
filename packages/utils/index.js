@@ -1,4 +1,3 @@
-import React from "react";
 
 export function uniqObjInArray(objarray) {
   const len = objarray.length;
@@ -29,3 +28,4 @@ export * from "./message";
 export * from "./table";
 export * from "./number";
 export * from "./options";
+export * from "./tree";
