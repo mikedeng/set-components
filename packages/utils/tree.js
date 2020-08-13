@@ -83,4 +83,10 @@ export function addTreeFields(treeData, opts) {
 	return treeData?.map((e) => addExtraFields(e, opts)) || [];
 }
 
+export function Tree(treeData) {
+	return {
+		addTreeFields: (opts) => addTreeFields(treeData, opts),
+	};
+}
+
 export default {};

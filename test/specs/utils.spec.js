@@ -81,7 +81,7 @@ describe('utils: check exists', () => {
 			callback: (el) => {
 				return { ...el, uuid: Math.random() };
 			},
-		});
+		});    
 
 		// check structure
 		expect(newTree[0].name).to.exist;
@@ -130,10 +130,19 @@ describe('utils: check exists', () => {
 
 		// check children.title = children.name
 		expect(newTree[1].children[0].children[0].title).to.equal(newTree[1].children[0].children[0].name);
-    expect(newTree[1].children[0].children[0].title).to.equal('name222');
+		expect(newTree[1].children[0].children[0].title).to.equal('name222');
+
+		expect(newTree[0].uuid).to.exist;
+    expect(newTree[1].children[0].children[0].uuid).to.exist;
     
 
-    expect(newTree[0].uuid).to.exist;
-    expect(newTree[1].children[0].children[0].uuid).to.exist;
+    const newTree2 = utils.Tree(treeData).addTreeFields({
+			callback: (el) => {
+				return { ...el, uuid: Math.random() };
+			},
+		});
+
+    expect(newTree2[0].name).to.exist;
+		expect(newTree2[1].children[0].children[0].name).to.exist;
 	});
 });
