@@ -14,6 +14,7 @@ export default class CodePreview extends React.Component {
     this.handleCodeExpand = this.handleCodeExpand.bind(this);
     this.fullscreenPreview = this.fullscreenPreview.bind(this);
   }
+
   fullscreenPreview() {
     const { title, children } = this.props;
     Modal.info({
@@ -27,12 +28,14 @@ export default class CodePreview extends React.Component {
       maskClosable: true
     });
   }
+
   handleCodeExpand() {
     const { codeExpand } = this.state;
     this.setState({
       codeExpand: !codeExpand
     });
   }
+  
   render() {
     const { children } = this.props;
     const { codeExpand } = this.state;

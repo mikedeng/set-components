@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
-import { utils } from '../../packages';
 import { expect } from 'chai';
+import { utils } from '../../packages';
 
 describe('utils: check exists', () => {
 	it('检查所有方法都存在', () => {
@@ -142,8 +142,8 @@ describe('utils: check exists', () => {
 			},
 		});
 
-		expect(tree[0].name).to.exist;
-		expect(tree[1].children[0].children[0].name).to.exist;
+		expect(tree.data[0].name).to.exist;
+		expect(tree.data[1].children[0].children[0].name).to.exist;
 		const foundNode = tree.findNode({ id: 2 });
 		expect(foundNode).to.exist;
 		expect(foundNode.title).to.equal('name2');

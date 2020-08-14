@@ -69,7 +69,6 @@ class CheckTypes extends Component {
   };
 
   handlePersonTypeChange = values => {
-    console.log(`values: `, values);
     this.setState({ personTypes: values });
    };
 

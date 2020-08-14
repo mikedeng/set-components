@@ -116,7 +116,6 @@ class Basic extends React.Component {
       showTotal: false,
       checkMode: "single",
       onCheck: (keys, values) => {
-        console.log(`keys: `, keys, values);
         this.setState({ selectedRowKeys: keys });
       },
       selectedRowKeys

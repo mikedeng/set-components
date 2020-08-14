@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import {pluck } from './object';
 
 const getFieldValue = (e, field) => {
 	return _.isFunction(field) ? field(e) : e[field];
@@ -13,6 +14,27 @@ const getAllChildrenIds = (children, childrenField, array, valueField) => {
 	});
 };
 
+/**
+ * 为单个对象添加其它字段
+ 	@returns 返回对象，和被添加的对象 
+		{ 
+			valuePaths {Array} -- 所有value
+		  | titlePaths {Array} -- 所有title 
+		  | parentValue {*} -- 父节点value
+		  | parent {Object} -- 父节点
+		  | paths {Object[]} -- 当前父级及当前节点的列表
+		  | autoLevel {number} -- 当前节点等级
+	  }
+    @param {Object} [element={}]
+    @param {Object} [opts={}] 要添加的内容
+    @param {string|function} [opts.valueField='id'] 指定 value 的默认 field
+		@param {string|function} [opts.titleField = 'name'] 指定 name 的默认 field
+		@param {string} [opts.childrenField = 'children']  指定 children 的默认 field
+		@param {string} [opts.valueAlias = 'value']  指定 value 的显示别名
+		@param {string} [opts.titleAlias = 'title']  指定 title 的显示别名
+		@param {string} [opts.childrenAlias = 'children'] 指定 children 的显示别名
+		@param {function} [opts.callback] 遍历树中的每一个对象
+ */
 export function addExtraFields(element = {}, opts = {}) {
 	const {
 		valueField = 'id',
@@ -86,19 +108,31 @@ export function addExtraFields(element = {}, opts = {}) {
 	return newEl;
 }
 
+/**
+ * 为树状数据中的每个对象添加额外字段
+ 	@returns 返回树，并在每个节点上添加额外的字段，这些字段包括
+		{ 
+			valuePaths {Array} -- 所有value
+		  | titlePaths {Array} -- 所有title 
+		  | parentValue {*} -- 父节点value
+		  | parent {Object} -- 父节点
+		  | paths {Object[]} -- 当前父级及当前节点的列表
+		  | autoLevel {number} -- 当前节点等级
+	  }
+    @param {Object []} [treeData] 
+    @param {Object} [opts={}] 要添加的内容
+    @param {string|function} [opts.valueField='id'] 指定 value 的默认 field
+		@param {string|function} [opts.titleField = 'name'] 指定 name 的默认 field
+		@param {string} [opts.childrenField = 'children']  指定 children 的默认 field
+		@param {string} [opts.valueAlias = 'value']  指定 value 的显示别名
+		@param {string} [opts.titleAlias = 'title']  指定 title 的显示别名
+		@param {string} [opts.childrenAlias = 'children'] 指定 children 的显示别名
+		@param {function} [opts.callback] 遍历树中的每一个对象
+ */
 export function addTreeFields(treeData, opts) {
 	return treeData?.map((e) => addExtraFields(e, opts)) || [];
 }
 
-const pluck = (e, keys) => {
-	return keys
-		.map((key) => {
-			return { [key]: e[key] };
-		})
-		.reduce((h, c) => {
-			return { ...h, ...c };
-		}, {});
-};
 
 export function findNode(treeData, value) {
 	for (let i = 0; i < treeData.length; i += 1) {
@@ -116,15 +150,18 @@ export function findNode(treeData, value) {
 	return null;
 }
 
+/**
+ * 创建树对象
+ *
+ * @export
+ * @param {*} treeData
+ * @param {*} opts
+ * @returns 返回树，和 findNode 方法, 其中 findNode 方法可以直接传 value 字段值，也可以是对象，例如 { value: 2 }
+ */
 export function Tree(treeData, opts) {
-	// eslint-disable-next-line
-	const tree = addTreeFields(treeData, opts);
-	// eslint-disable-next-line
+	this.data = addTreeFields(treeData, opts);
 
-	// eslint-disable-next-line
-	tree.findNode = (value) => findNode(tree, value);
-	// eslint-disable-next-line
-	return tree;
+	this.findNode = (value) => findNode(this.data, value);
 }
 
 export default {};
