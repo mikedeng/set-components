@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {pluck } from './object';
+import { pluck } from './object';
 
 const getFieldValue = (e, field) => {
 	return _.isFunction(field) ? field(e) : e[field];
@@ -133,13 +133,19 @@ export function addTreeFields(treeData, opts) {
 	return treeData?.map((e) => addExtraFields(e, opts)) || [];
 }
 
-
 export function findNode(treeData, value) {
 	for (let i = 0; i < treeData.length; i += 1) {
 		const node = treeData[i];
-		const keys = Object.keys(value);
-		const newObj = pluck(node, keys);
-		if (_.isEqual(newObj, value)) {
+		let flag;
+		if (_.isObject(value)) {
+			const keys = Object.keys(value);
+			const newObj = pluck(node, keys);
+			flag = _.isEqual(newObj, value);
+		} else {
+			flag = node.value === value;
+		}
+
+		if (flag) {
 			return node;
 			// eslint-disable-next-line
 		} else if (node?.children?.length > 0) {

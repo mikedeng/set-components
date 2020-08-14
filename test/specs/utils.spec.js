@@ -144,14 +144,18 @@ describe('utils: check exists', () => {
 
 		expect(tree.data[0].name).to.exist;
 		expect(tree.data[1].children[0].children[0].name).to.exist;
+
+		const found222 = tree.findNode(222);
+		expect(found222).to.exist;
+
 		const foundNode = tree.findNode({ id: 2 });
 		expect(foundNode).to.exist;
 		expect(foundNode.title).to.equal('name2');
 		expect(foundNode.parent).to.be.null;
 
 		const foundNode222 = tree.findNode({ id: 222 });
-    expect(foundNode222.parent.title).to.equal('name22');
-    
+		expect(foundNode222.parent.title).to.equal('name22');
+
 		expect(foundNode222.paths.length).to.equal(3);
 		expect(foundNode222.parent.parent.title).to.equal('name2');
 		expect(foundNode222.parent.parent.parent).to.equal(null);
