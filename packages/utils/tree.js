@@ -22,18 +22,20 @@ export function addExtraFields(element = {}, opts = {}) {
 		valueAlias = 'value',
 		titleAlias = 'title',
 		childrenAlias = 'children',
-		parentValue = null,
+
 		valuePaths = [],
 		titlePaths = [],
+
+		parentValue = null,
+		parent = null,
+		paths = [],
 		autoLevel = 1,
 		callback,
 	} = opts;
 
-	const newElement = { ...element };
-	let { value, title, children } = newElement;
-	value = getFieldValue(newElement, valueField);
-	title = getFieldValue(newElement, titleField);
-	children = newElement[childrenField];
+	const value = getFieldValue(element, valueField);
+	const title = getFieldValue(element, titleField);
+	const children = element[childrenField];
 
 	const childrenIds = children?.map((e) => getFieldValue(e, valueField) || e.value) || [];
 	const allChildrenIds = [];
@@ -41,12 +43,15 @@ export function addExtraFields(element = {}, opts = {}) {
 
 	const newParentValues = [...valuePaths, value];
 	const newTitlePaths = [...titlePaths, title];
+	const newPaths = [...paths, element];
 
 	const newEl = {
-		...newElement,
+		...element,
 		[valueAlias]: value,
 		[titleAlias]: title,
 		parentValue,
+		parent,
+		paths: newPaths,
 		valuePaths: newParentValues,
 		titlePaths: newTitlePaths,
 		childrenIds,
@@ -54,7 +59,7 @@ export function addExtraFields(element = {}, opts = {}) {
 		autoLevel,
 	};
 
-	children =
+	const newChildren =
 		children?.map((e) =>
 			addExtraFields(e, {
 				valueField,
@@ -64,6 +69,8 @@ export function addExtraFields(element = {}, opts = {}) {
 				titleAlias,
 				childrenAlias,
 				parentValue: value,
+				parent: newEl,
+				paths: newPaths,
 				valuePaths: newParentValues,
 				titlePaths: newTitlePaths,
 				autoLevel: autoLevel + 1,
@@ -71,7 +78,7 @@ export function addExtraFields(element = {}, opts = {}) {
 			})
 		) || [];
 
-	newEl[childrenAlias] = children;
+	newEl[childrenAlias] = newChildren;
 	if (callback) {
 		return callback(newEl);
 	}
@@ -83,10 +90,41 @@ export function addTreeFields(treeData, opts) {
 	return treeData?.map((e) => addExtraFields(e, opts)) || [];
 }
 
-export function Tree(treeData) {
-	return {
-		addTreeFields: (opts) => addTreeFields(treeData, opts),
-	};
+const pluck = (e, keys) => {
+	return keys
+		.map((key) => {
+			return { [key]: e[key] };
+		})
+		.reduce((h, c) => {
+			return { ...h, ...c };
+		}, {});
+};
+
+export function findNode(treeData, value) {
+	for (let i = 0; i < treeData.length; i += 1) {
+		const node = treeData[i];
+		const keys = Object.keys(value);
+		const newObj = pluck(node, keys);
+		if (_.isEqual(newObj, value)) {
+			return node;
+			// eslint-disable-next-line
+		} else if (node?.children?.length > 0) {
+			return findNode(node.children, value);
+		}
+	}
+
+	return null;
+}
+
+export function Tree(treeData, opts) {
+	// eslint-disable-next-line
+	const tree = addTreeFields(treeData, opts);
+	// eslint-disable-next-line
+
+	// eslint-disable-next-line
+	tree.findNode = (value) => findNode(tree, value);
+	// eslint-disable-next-line
+	return tree;
 }
 
 export default {};

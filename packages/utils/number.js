@@ -4,7 +4,9 @@
  * @param {*} pointCount 保留小数点的位数
  */
 export function toDecimalString(value = 0, pointCount = 2) {
-  const withPoint = (+value).toFixed(pointCount);
-  const reg = /(\d{1,3})(?=(\d{3})+(\.|$))/g;
-  return withPoint.replace(reg, "$1,");
+	const withPoint = (+value).toFixed(pointCount);
+	const reg = /(\d{1,3})(?=(\d{3})+(\.|$))/g;
+	return withPoint.replace(reg, '$1,');
 }
+
+export default {};

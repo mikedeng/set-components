@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import { utils } from '../../packages';
+import { expect } from 'chai';
 
 describe('utils: check exists', () => {
 	it('检查所有方法都存在', () => {
@@ -81,7 +82,7 @@ describe('utils: check exists', () => {
 			callback: (el) => {
 				return { ...el, uuid: Math.random() };
 			},
-		});    
+		});
 
 		// check structure
 		expect(newTree[0].name).to.exist;
@@ -133,16 +134,26 @@ describe('utils: check exists', () => {
 		expect(newTree[1].children[0].children[0].title).to.equal('name222');
 
 		expect(newTree[0].uuid).to.exist;
-    expect(newTree[1].children[0].children[0].uuid).to.exist;
-    
+		expect(newTree[1].children[0].children[0].uuid).to.exist;
 
-    const newTree2 = utils.Tree(treeData).addTreeFields({
+		const tree = new utils.Tree(treeData, {
 			callback: (el) => {
 				return { ...el, uuid: Math.random() };
 			},
 		});
 
-    expect(newTree2[0].name).to.exist;
-		expect(newTree2[1].children[0].children[0].name).to.exist;
+		expect(tree[0].name).to.exist;
+		expect(tree[1].children[0].children[0].name).to.exist;
+		const foundNode = tree.findNode({ id: 2 });
+		expect(foundNode).to.exist;
+		expect(foundNode.title).to.equal('name2');
+		expect(foundNode.parent).to.be.null;
+
+		const foundNode222 = tree.findNode({ id: 222 });
+    expect(foundNode222.parent.title).to.equal('name22');
+    
+		expect(foundNode222.paths.length).to.equal(3);
+		expect(foundNode222.parent.parent.title).to.equal('name2');
+		expect(foundNode222.parent.parent.parent).to.equal(null);
 	});
 });
