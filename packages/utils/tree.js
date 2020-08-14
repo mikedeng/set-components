@@ -91,7 +91,7 @@ export function addExtraFields(element = {}, opts = {}) {
 				titleAlias,
 				childrenAlias,
 				parentValue: value,
-				parent: newEl,
+				parent: _.cloneDeep(newEl),
 				paths: newPaths,
 				valuePaths: newParentValues,
 				titlePaths: newTitlePaths,
