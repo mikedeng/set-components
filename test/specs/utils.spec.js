@@ -96,6 +96,8 @@ describe('utils: check exists', () => {
 		];
 
 		const newTree = utils.addTreeFields(treeData, {
+			valueField: 'id',
+			titleField: 'name',
 			callback: (el) => {
 				return { ...el, uuid: Math.random() };
 			},
@@ -154,6 +156,8 @@ describe('utils: check exists', () => {
 		expect(newTree[1].children[0].children[0].uuid).to.exist;
 
 		const tree = new utils.Tree(treeData, {
+			valueField: 'id',
+			titleField: 'name',
 			callback: (el) => {
 				return { ...el, uuid: Math.random() };
 			},
@@ -177,7 +181,10 @@ describe('utils: check exists', () => {
 		expect(foundNode222.parent.parent.title).to.equal('name2');
 		expect(foundNode222.parent.parent.parent).to.equal(null);
 
-		const newTreeWith333 = new utils.Tree(treeData);
+		const newTreeWith333 = new utils.Tree(treeData, {
+			valueField: 'id',
+			titleField: 'name',
+		});
 		const foundNode333 = newTreeWith333.findNode(333) || {};
 		expect(foundNode333.value).to.equal(333);
 	});
