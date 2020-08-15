@@ -76,6 +76,23 @@ describe('utils: check exists', () => {
 					},
 				],
 			},
+
+			{
+				id: 3,
+				name: 'name3',
+				children: [
+					{
+						id: 33,
+						name: 'name33',
+						children: [
+							{
+								id: 333,
+								name: 'name333',
+							},
+						],
+					},
+				],
+			},
 		];
 
 		const newTree = utils.addTreeFields(treeData, {
@@ -159,5 +176,9 @@ describe('utils: check exists', () => {
 		expect(foundNode222.paths.length).to.equal(3);
 		expect(foundNode222.parent.parent.title).to.equal('name2');
 		expect(foundNode222.parent.parent.parent).to.equal(null);
+
+		const newTreeWith333 = new utils.Tree(treeData);
+		const foundNode333 = newTreeWith333.findNode(333) || {};
+		expect(foundNode333.value).to.equal(333);
 	});
 });
