@@ -27,8 +27,8 @@ const getAllChildrenIds = (children, childrenField, array, valueField) => {
 	  }
     @param {Object} [element={}]
     @param {Object} [opts={}] 要添加的内容
-    @param {string|function} [opts.valueField='id'] 指定 value 的默认 field
-		@param {string|function} [opts.titleField = 'name'] 指定 name 的默认 field
+    @param {string|function} [opts.valueField='value'] 指定 value 的默认 field
+		@param {string|function} [opts.titleField = 'title'] 指定 title 的默认 field
 		@param {string} [opts.childrenField = 'children']  指定 children 的默认 field
 		@param {string} [opts.valueAlias = 'value']  指定 value 的显示别名
 		@param {string} [opts.titleAlias = 'title']  指定 title 的显示别名
@@ -37,8 +37,8 @@ const getAllChildrenIds = (children, childrenField, array, valueField) => {
  */
 export function addExtraFields(element = {}, opts = {}) {
 	const {
-		valueField = 'id',
-		titleField = 'name',
+		valueField = 'value',
+		titleField = 'title',
 		childrenField = 'children',
 
 		valueAlias = 'value',
@@ -122,8 +122,8 @@ export function addExtraFields(element = {}, opts = {}) {
 	  }
     @param {Object []} [treeData] 
     @param {Object} [opts={}] 要添加的内容
-    @param {string|function} [opts.valueField='id'] 指定 value 的默认 field
-		@param {string|function} [opts.titleField = 'name'] 指定 name 的默认 field
+    @param {string|function} [opts.valueField='value'] 指定 value 的默认 field
+		@param {string|function} [opts.titleField = 'title'] 指定 title 的默认 field
 		@param {string} [opts.childrenField = 'children']  指定 children 的默认 field
 		@param {string} [opts.valueAlias = 'value']  指定 value 的显示别名
 		@param {string} [opts.titleAlias = 'title']  指定 title 的显示别名
