@@ -81,6 +81,7 @@ export function addExtraFields(element = {}, opts = {}) {
 		autoLevel,
 	};
 
+	const newParent = _.cloneDeep(_.omit(newEl, 'children'));
 	const newChildren =
 		children?.map((e) =>
 			addExtraFields(e, {
@@ -91,7 +92,7 @@ export function addExtraFields(element = {}, opts = {}) {
 				titleAlias,
 				childrenAlias,
 				parentValue: value,
-				parent: _.cloneDeep(newEl),
+				parent: newParent,
 				paths: newPaths,
 				valuePaths: newParentValues,
 				titlePaths: newTitlePaths,
