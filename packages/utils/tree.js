@@ -171,7 +171,35 @@ export class Tree {
 		this.data = addTreeFields(treeData, opts) || [];
 	}
 
-	findNode(value) {
+	forEach2(children, fn) {
+		// eslint-disable-next-line no-unused-expressions
+		children?.forEach((e) => {
+			fn(e);
+			this.forEach2(e.children, fn);
+		});
+	}
+
+	forEach(fn) {
+		this.forEach2(this.data, fn);
+	}
+
+	map2(children, fn) {
+		return children?.map((e) => {
+			this.map2(e.children, fn);
+			return fn(e);
+		});
+	}
+
+	map(fn) {
+		const newData = this.map2(this.data, (e) => {
+			return fn(e);
+		});
+
+		this.data = newData;
+		return this;
+	}
+
+	find(value) {
 		return this.findNode2(this.data, value);
 	}
 
@@ -179,7 +207,9 @@ export class Tree {
 		for (let i = 0; i < treeData.length; i += 1) {
 			const node = treeData[i];
 			let flag;
-			if (_.isObject(value)) {
+			if (_.isFunction(value)) {
+				flag = value(node);
+			} else if (_.isObject(value)) {
 				const keys = Object.keys(value);
 				const newObj = pluck(node, keys);
 				flag = _.isEqual(newObj, value);

@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import { expect } from 'chai';
+import _ from 'lodash';
 import { utils } from '../../packages';
 
 describe('utils: check exists', () => {
@@ -166,15 +167,15 @@ describe('utils: check exists', () => {
 		expect(tree.data[0].name).to.exist;
 		expect(tree.data[1].children[0].children[0].name).to.exist;
 
-		const found222 = tree.findNode(222);
+		const found222 = tree.find(222);
 		expect(found222.value).to.equal(222);
 
-		const foundNode = tree.findNode({ id: 2 });
+		const foundNode = tree.find({ id: 2 });
 		expect(foundNode).to.exist;
 		expect(foundNode.title).to.equal('name2');
 		expect(foundNode.parent).to.be.null;
 
-		const foundNode222 = tree.findNode({ id: 222 });
+		const foundNode222 = tree.find({ id: 222 });
 		expect(foundNode222.parent.title).to.equal('name22');
 
 		expect(foundNode222.paths.length).to.equal(3);
@@ -185,7 +186,33 @@ describe('utils: check exists', () => {
 			valueField: 'id',
 			titleField: 'name',
 		});
-		const foundNode333 = newTreeWith333.findNode(333) || {};
+
+		const foundNode333 = newTreeWith333.find(333) || {};
 		expect(foundNode333.value).to.equal(333);
+		expect(foundNode333.value).to.equal(333);
+
+		const foundNodeWithFn = tree.find((e) => e.title === 'name222');
+		expect(foundNodeWithFn.value).to.equal(222);
+
+		const values = [];
+		newTreeWith333.forEach((e) => {
+			e.disableCheckbox = true;
+			values.push(e.value);
+		});
+		expect(values).to.eql([1, 2, 22, 222, 3, 33, 333]);
+		expect(newTreeWith333.data[0].disableCheckbox).to.be.true;
+		expect(newTreeWith333.data[2].children[0].disableCheckbox).to.be.true;
+
+		const values2 = [];
+		const newTree2 = newTreeWith333.map((e) => {
+			values2.push(e.value);
+			return { ...e, disableCheckbox: true };
+		});
+
+		const newValues2 = values2.sort();
+		const rawArray = [1, 2, 22, 222, 3, 33, 333].sort();
+		expect(newValues2).to.eql(rawArray);
+		expect(newTree2.data[0].disableCheckbox).to.be.true;
+		expect(newTree2.data[2].children[0].disableCheckbox).to.be.true;
 	});
 });
