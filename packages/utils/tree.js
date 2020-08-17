@@ -169,6 +169,7 @@ export class Tree {
 	constructor(treeData, opts) {
 		this.raw_data = treeData;
 		this.data = addTreeFields(treeData, opts) || [];
+		this.opts = opts;
 	}
 
 	forEach2(children, fn) {
@@ -195,8 +196,7 @@ export class Tree {
 			return fn(e);
 		});
 
-		this.data = newData;
-		return this;
+		return new Tree(newData, this.opts);
 	}
 
 	find(value) {
