@@ -277,5 +277,8 @@ describe('utils: check exists', () => {
 		const newTree3Y = newTree2Y.map((e) => ({ ...e, disableCheckbox: true }));
 		expect(newTree3Y.data[0].disableCheckbox).to.be.true;
 		expect(newTree3Y.data[2].children[0].disableCheckbox).to.be.true;
+
+		const newTree2Y2 = new utils.Tree([]);
+		expect(newTree2Y2).to.exist;
 	});
 });
