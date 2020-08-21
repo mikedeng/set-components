@@ -32,7 +32,10 @@ const Utils = () => {
 			},
     ];
 
-const tree =  new Tree(treeData);
+const tree =  new Tree(treeData, {valueFiled: 'id', titleField: 'name', callback(e){ return {...e, disableCheckbox: false }} });
+const newTree3 = tree.map((e) => ({ ...e, disableCheckbox: true }));
+
+// expect(newTree3.data[0].disableCheckbox).to.be.true;
 
 return  <div>
   tree.data[1].title:  {

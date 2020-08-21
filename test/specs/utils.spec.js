@@ -35,7 +35,8 @@ describe('utils: check exists', () => {
 		// options.js
 		expect(utils.getEnumObject).to.exist;
 
-		expect(utils.addExtraFields).to.exist;
+		expect(utils.Tree.prototype.find).to.exist;
+		expect(utils.Tree.prototype.map).to.exist;
 	});
 
 	it('检查正确性: formatLongName', () => {
@@ -96,7 +97,7 @@ describe('utils: check exists', () => {
 			},
 		];
 
-		const newTree = utils.addTreeFields(treeData, {
+		const newTree = new utils.Tree(treeData, {
 			valueField: 'id',
 			titleField: 'name',
 			callback: (el) => {
@@ -104,57 +105,58 @@ describe('utils: check exists', () => {
 			},
 		});
 
+		expect(newTree.data).to.exist;
 		// check structure
-		expect(newTree[0].name).to.exist;
-		expect(newTree[0].title).to.exist;
-		expect(newTree[1].children).to.exist;
-		expect(newTree[1].children[0].name).to.exist;
-		expect(newTree[1].children[0].title).to.exist;
-		expect(newTree[1].children[0].children[0].name).to.exist;
-		expect(newTree[1].children[0].children[0].title).to.exist;
+		expect(newTree.data[0].name).to.exist;
+		expect(newTree.data[0].title).to.exist;
+		expect(newTree.data[1].children).to.exist;
+		expect(newTree.data[1].children[0].name).to.exist;
+		expect(newTree.data[1].children[0].title).to.exist;
+		expect(newTree.data[1].children[0].children[0].name).to.exist;
+		expect(newTree.data[1].children[0].children[0].title).to.exist;
 
 		// check parentValue
-		expect(newTree[0].parentValue).to.equal(null);
-		expect(newTree[1].children[0].parentValue).to.equal(2);
-		expect(newTree[1].children[0].children[0].parentValue).to.equal(22);
+		expect(newTree.data[0].parentValue).to.equal(null);
+		expect(newTree.data[1].children[0].parentValue).to.equal(2);
+		expect(newTree.data[1].children[0].children[0].parentValue).to.equal(22);
 
 		// check valuePaths
-		expect(newTree[0].valuePaths).to.eql([1]);
-		expect(newTree[1].children[0].valuePaths).to.eql([2, 22]);
-		expect(newTree[1].children[0].children[0].valuePaths).to.eql([2, 22, 222]);
+		expect(newTree.data[0].valuePaths).to.eql([1]);
+		expect(newTree.data[1].children[0].valuePaths).to.eql([2, 22]);
+		expect(newTree.data[1].children[0].children[0].valuePaths).to.eql([2, 22, 222]);
 
-		expect(newTree[0].titlePaths).to.eql(['name1']);
-		expect(newTree[1].children[0].titlePaths).to.eql(['name2', 'name22']);
-		expect(newTree[1].children[0].children[0].titlePaths).to.eql(['name2', 'name22', 'name222']);
+		expect(newTree.data[0].titlePaths).to.eql(['name1']);
+		expect(newTree.data[1].children[0].titlePaths).to.eql(['name2', 'name22']);
+		expect(newTree.data[1].children[0].children[0].titlePaths).to.eql(['name2', 'name22', 'name222']);
 
 		// check childrenIds
-		expect(newTree[0].childrenIds).to.eql([]);
-		expect(newTree[1].childrenIds).to.eql([22]);
-		expect(newTree[1].allChildrenIds).to.eql([22, 222]);
+		expect(newTree.data[0].childrenIds).to.eql([]);
+		expect(newTree.data[1].childrenIds).to.eql([22]);
+		expect(newTree.data[1].allChildrenIds).to.eql([22, 222]);
 
 		// check autoLevel
-		expect(newTree[0].autoLevel).to.equal(1);
-		expect(newTree[1].children[0].autoLevel).to.equal(2);
-		expect(newTree[1].children[0].children[0].autoLevel).to.equal(3);
+		expect(newTree.data[0].autoLevel).to.equal(1);
+		expect(newTree.data[1].children[0].autoLevel).to.equal(2);
+		expect(newTree.data[1].children[0].children[0].autoLevel).to.equal(3);
 
 		// check value = id
-		expect(newTree[0].value).to.equal(treeData[0].id);
-		expect(newTree[0].value).to.equal(1);
+		expect(newTree.data[0].value).to.equal(treeData[0].id);
+		expect(newTree.data[0].value).to.equal(1);
 
 		// check title = name
-		expect(newTree[0].title).to.equal(treeData[0].name);
-		expect(newTree[0].title).to.equal('name1');
+		expect(newTree.data[0].title).to.equal(treeData[0].name);
+		expect(newTree.data[0].title).to.equal('name1');
 
 		// check children.value = children.id
-		expect(newTree[1].children[0].value).to.equal(newTree[1].children[0].id);
-		expect(newTree[1].children[0].value).to.equal(22);
+		expect(newTree.data[1].children[0].value).to.equal(newTree.data[1].children[0].id);
+		expect(newTree.data[1].children[0].value).to.equal(22);
 
 		// check children.title = children.name
-		expect(newTree[1].children[0].children[0].title).to.equal(newTree[1].children[0].children[0].name);
-		expect(newTree[1].children[0].children[0].title).to.equal('name222');
+		expect(newTree.data[1].children[0].children[0].title).to.equal(newTree.data[1].children[0].children[0].name);
+		expect(newTree.data[1].children[0].children[0].title).to.equal('name222');
 
-		expect(newTree[0].uuid).to.exist;
-		expect(newTree[1].children[0].children[0].uuid).to.exist;
+		expect(newTree.data[0].uuid).to.exist;
+		expect(newTree.data[1].children[0].children[0].uuid).to.exist;
 
 		const tree = new utils.Tree(treeData, {
 			valueField: 'id',
@@ -204,15 +206,76 @@ describe('utils: check exists', () => {
 		expect(newTreeWith333.data[2].children[0].disableCheckbox).to.be.true;
 
 		const values2 = [];
-		const newTree2 = newTreeWith333.map((e) => {
-			values2.push(e.value);
-			return { ...e, disableCheckbox: true };
+		const newTree2 = new utils.Tree(treeData, {
+			valueField: 'id',
+			titleField: 'name',
+			callback(e) {
+				values2.push(e.value);
+				return { ...e, disableCheckbox: false };
+			},
 		});
 
 		const newValues2 = values2.sort();
 		const rawArray = [1, 2, 22, 222, 3, 33, 333].sort();
 		expect(newValues2).to.eql(rawArray);
-		expect(newTree2.data[0].disableCheckbox).to.be.true;
-		expect(newTree2.data[2].children[0].disableCheckbox).to.be.true;
+		expect(newTree2.data[0].disableCheckbox).to.be.false;
+		expect(newTree2.data[2].children[0].disableCheckbox).to.be.false;
+
+		const newTree2x = new utils.Tree(treeData, {
+			valueField: 'id',
+			titleField: 'name',
+			callback(e) {
+				return { ...e, disableCheckbox: false };
+			},
+		});
+		const newTree3 = newTree2x.map((e) => ({ ...e, disableCheckbox: true }));
+		expect(newTree3.data[0].disableCheckbox).to.be.true;
+		expect(newTree3.data[2].children[0].disableCheckbox).to.be.true;
+
+
+		const treeData2 = [
+			{
+				value: 1,
+				title: 'name1',
+			},
+			{
+				value: 2,
+				title: 'name2',
+				children: [
+					{
+						value: 22,
+						title: 'name22',
+						children: [
+							{
+								value: 222,
+								title: 'name222',
+							},
+						],
+					},
+				],
+			},
+
+			{
+				value: 3,
+				title: 'name3',
+				children: [
+					{
+						value: 33,
+						title: 'name33',
+						children: [
+							{
+								value: 333,
+								title: 'name333',
+							},
+						],
+					},
+				],
+			},
+		];
+
+		const newTree2Y = new utils.Tree(treeData2);
+		const newTree3Y = newTree2Y.map((e) => ({ ...e, disableCheckbox: true }));
+		expect(newTree3Y.data[0].disableCheckbox).to.be.true;
+		expect(newTree3Y.data[2].children[0].disableCheckbox).to.be.true;
 	});
 });
