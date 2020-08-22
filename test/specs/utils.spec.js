@@ -115,6 +115,11 @@ describe('utils: check exists', () => {
 		expect(newTree.data[1].children[0].children[0].name).to.exist;
 		expect(newTree.data[1].children[0].children[0].title).to.exist;
 
+		const node333 = newTree.find(333);
+		expect(node333.uuid).to.exist;
+		expect(node333.parent.uuid).to.exist;
+		expect(node333.parent.parent.uuid).to.exist;
+
 		// check parentValue
 		expect(newTree.data[0].parentValue).to.equal(null);
 		expect(newTree.data[1].children[0].parentValue).to.equal(2);
@@ -231,7 +236,6 @@ describe('utils: check exists', () => {
 		const newTree3 = newTree2x.map((e) => ({ ...e, disableCheckbox: true }));
 		expect(newTree3.data[0].disableCheckbox).to.be.true;
 		expect(newTree3.data[2].children[0].disableCheckbox).to.be.true;
-
 
 		const treeData2 = [
 			{

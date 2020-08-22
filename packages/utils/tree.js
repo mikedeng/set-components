@@ -98,7 +98,7 @@ export class Tree {
 		const newTitlePaths = [...titlePaths, title];
 		const newPaths = [...paths, element];
 
-		const newEl = {
+		let newEl = {
 			...element,
 			[valueAlias]: value,
 			[titleAlias]: title,
@@ -111,6 +111,10 @@ export class Tree {
 			allChildrenIds,
 			autoLevel,
 		};
+
+		if (callback) {
+			newEl = callback(newEl);
+		}
 
 		const newParent = _.cloneDeep(_.omit(newEl, 'children'));
 		const newChildren =
@@ -133,9 +137,6 @@ export class Tree {
 			) || [];
 
 		newEl[childrenAlias] = newChildren;
-		if (callback) {
-			return callback(newEl);
-		}
 
 		return newEl;
 	}
