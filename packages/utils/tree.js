@@ -78,11 +78,11 @@ export class Tree {
 			callback,
 		} = opts;
 
-		if (!Object.keys(element).includes(valueField)) {
+		if (_.isString(valueField) && !Object.keys(element).includes(valueField)) {
 			throw new Error(`请设置正确的 valueField，默认是 ${DefaultValueField}`);
 		}
 
-		if (!Object.keys(element).includes(titleField)) {
+		if (_.isString(titleField) && !Object.keys(element).includes(titleField)) {
 			throw new Error(`请设置正确的 titleField, 默认是 ${DefaultTitleField}`);
 		}
 
