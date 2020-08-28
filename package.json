@@ -1,6 +1,6 @@
 {
 	"name": "set-components",
-	"version": "1.3.32",
+	"version": "1.3.33",
 	"main": "dist/index.js",
 	"license": "MIT",
 	"scripts": {
@@ -35,7 +35,8 @@
 		"antd": "^3.19.2",
 		"lodash": ">=4.17.13",
 		"moment": "^2.24.0",
-		"react": "^16.8.6"
+		"react": "^16.8.6",
+		"dva": "^2.4.1"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.4.4",
@@ -107,7 +108,6 @@
 		"autoprefixer": "^9.7.2",
 		"chai": "^4.2.0",
 		"classnames": "^2.2.6",
-		"dva": "^2.4.1",
 		"lodash-decorators": "^6.0.1",
 		"nzh": "^1.0.4",
 		"qs": "^6.7.0"
