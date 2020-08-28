@@ -37,6 +37,7 @@ describe('utils: check exists', () => {
 
 		expect(utils.Tree.prototype.find).to.exist;
 		expect(utils.Tree.prototype.map).to.exist;
+		expect(utils.connectModel).to.exist;
 	});
 
 	it('检查正确性: formatLongName', () => {

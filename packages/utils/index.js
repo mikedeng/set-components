@@ -29,3 +29,4 @@ export * from './number';
 export * from './options';
 export * from './tree';
 export * from './object';
+export * from './connectModel';
