@@ -1,7 +1,7 @@
-import React from 'react';
 import { expect } from 'chai';
-import { mount, render, shallow, configure} from 'enzyme';
+import { configure, mount, render, shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import React from 'react';
 
 configure({ adapter: new Adapter() });
 

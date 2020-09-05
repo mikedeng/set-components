@@ -1,19 +1,40 @@
 import { connect } from 'dva';
+import { pluck } from './object';
 
 const effectSep = '/';
 const fnSep = '_';
 
-export function connectModel({ model }) {
+/**
+ * 连接 model
+ *
+ * @export
+ * @param {*} { model 模型文件对象, states = [], prefixStates = false 是否给 states 添加前缀, prefixEffects = false 是否给 effects 添加前缀 }
+ * @returns
+ */
+export function connectModel({ model, states = [], prefixStates = false, prefixEffects = false }) {
 	const { namespace } = model;
 	const mapStateToProps = (state) => {
 		const {
 			loading: { effects },
 		} = state;
 
-		const stateContent = state[namespace];
+		let stateContent = state[namespace];
+		if (Object.keys(states).length > 0) {
+			stateContent = pluck(stateContent, states);
+		}
+
+		if (prefixStates) {
+			stateContent = Object.keys(stateContent)
+				.map((key) => {
+					return { [[namespace, key].join(fnSep)]: stateContent[key] };
+				})
+				.reduce((h, c) => ({ ...h, ...c }), {});
+		}
+
 		const loadingStates = Object.keys(effects)
 			.map((key) => {
-				const newKey = key.replace(effectSep, fnSep);
+				const [nspace, fnName] = key.split(effectSep);
+				const newKey = prefixEffects ? [nspace, fnName].join(fnSep) : fnName;
 				return { [`loading_${newKey}`]: effects[key] };
 			})
 			.reduce((h, c) => ({ ...h, ...c }), {});
@@ -27,7 +48,7 @@ export function connectModel({ model }) {
 			.concat(Object.keys(reducers))
 			.map((fnName) => {
 				const namespaceName = [namespace, fnName];
-				const name = namespaceName.join(fnSep);
+				const name = prefixEffects ? namespaceName.join(fnSep) : fnName;
 				const type = namespaceName.join(effectSep);
 				return {
 					[name]: (payload) =>
@@ -52,4 +73,4 @@ export function connectModel({ model }) {
 	);
 }
 
-export default {}
+export default {};
