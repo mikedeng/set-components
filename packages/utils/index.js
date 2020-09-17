@@ -17,6 +17,10 @@ export function getOptionName(options, value) {
 	return name;
 }
 
+export function ifElse(exp, ifExp, elseExp = null) {
+	return exp ? ifExp : elseExp;
+}
+
 export * from './constants';
 export * from './text';
 export * from './getCronOptions';
