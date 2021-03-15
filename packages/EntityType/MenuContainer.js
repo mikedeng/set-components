@@ -69,10 +69,12 @@ class MenuContainer extends Component {
   };
 
   handleTitleClick = () => {
-    this.setState(({ checked, data }) => {
-      const newCheck = !checked;
-      const newValue = newCheck ? data.subCodes : [];
-      return { checked: newCheck, indeterminate: false, value: newValue };
+    const { onChange } = this.props;
+    const { checked, data } = this.state;
+    const newCheck = !checked;
+    const newValue = newCheck ? data.subCodes : [];
+    this.setState({ checked: newCheck, indeterminate: false, value: newValue }, () => {
+      onChange(newValue);
     });
   };
 

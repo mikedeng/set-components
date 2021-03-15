@@ -34,7 +34,7 @@ class EntityType extends Component {
 
 	extendOptions = (options) => {
 		const newOptions = options?.map((e) => {
-      // eslint-disable-next-line
+			// eslint-disable-next-line
 			if (!e.hasOwnProperty('subCodes')) {
 				Object.defineProperty(e, 'subCodes', {
 					emberable: false,
@@ -47,7 +47,7 @@ class EntityType extends Component {
 			return e;
 		});
 
-    // eslint-disable-next-line
+		// eslint-disable-next-line
 		if (!newOptions.hasOwnProperty('subCodes')) {
 			Object.defineProperty(newOptions, 'subCodes', {
 				emberable: false,
@@ -110,7 +110,7 @@ class EntityType extends Component {
 		}
 
 		return (
-			<div
+  		<div
 				className={classNames(theme === 'light' ? styles['container-light'] : styles.container, className)}
 				style={{ ...style }}
 			>
@@ -131,7 +131,6 @@ class EntityType extends Component {
 				{options?.map((option, key) => {
 					// TODO: tuning
 					const filterValue = _.intersection(value, option.subCodes);
-
 					return (
 						<MenuContainer
 							key={key}

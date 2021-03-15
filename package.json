@@ -33,7 +33,6 @@
 	"author": "Mike Dune",
 	"peerDependencies": {
 		"antd": "^3.19.2",
-		"dva": "^2.4.1",
 		"lodash": ">=4.17.13",
 		"moment": "^2.24.0",
 		"react": "^16.8.6"
@@ -108,8 +107,10 @@
 		"autoprefixer": "^9.7.2",
 		"chai": "^4.2.0",
 		"classnames": "^2.2.6",
+		"dva": "^2.4.1",
 		"lodash-decorators": "^6.0.1",
 		"nzh": "^1.0.4",
-		"qs": "^6.7.0"
+		"qs": "^6.7.0",
+		"styled-components": "^5.2.0"
 	}
 }

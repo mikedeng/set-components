@@ -16,7 +16,7 @@ const filePath = "/set-components";
 
 module.exports = {
   history: "hash",
-  port: 8090,
+  port: 8092,
   source: {
     guide: ["./guide"],
     packages: "./packages",

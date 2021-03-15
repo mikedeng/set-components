@@ -1,0 +1,36 @@
+.scrollDiv {
+  z-index: 1;
+  font-size: 14px;
+
+  ul {
+    padding-left: 0;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    color: #fff;
+    & > div {
+      padding: 5px 8px;
+      text-align: center;
+    }
+  }
+
+  .row:not(:first-of-type) {
+    margin-top: 2px;
+  }
+
+  .rect {
+    // background: url(/rect.png);
+    background-position: center;
+    background-size: cover;
+  }
+
+  .even {
+    background: #1f2f74;
+  }
+
+  .odd {
+    background-color: transparent;
+  }
+}
